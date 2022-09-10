@@ -88,16 +88,14 @@ def predict_json(project, region, model, instances, version=None):
     ml_resource = googleapiclient.discovery.build(
         "ml", "v1", cache_discovery=False, client_options=client_options).projects()
     instances_list = instances.numpy().tolist() # turn input into list (ML Engine wants JSON)
-    
 
     input_data_json = {"signature_name": "serving_default",
                        "instances": instances_list}
 
-    
-
     request = ml_resource.predict(name=model_path, body=input_data_json)
     response = request.execute()
-    
+
+
     # # ALT: Create model api
     # model_api = api_endpoint + model_path + ":predict"
     # headers = {"Authorization": "Bearer " + token}
