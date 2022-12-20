@@ -3,6 +3,9 @@ import tensorflow as tf
 import googleapiclient.discovery
 from google.api_core.client_options import ClientOptions
 
+
+from google.cloud import aiplatform
+
 base_classes = ['chicken_curry',
  'chicken_wings',
  'fried_rice',
@@ -61,6 +64,8 @@ def predict_json(project, region, model, instances, version=None):
     
     input_data_json = {"signature_name": "serving_default",
                        "instances": instances_list} 
+
+    print(input_data_json)
 
     request = ml_resource.predict(name=model_path, body=input_data_json)
     response = request.execute()

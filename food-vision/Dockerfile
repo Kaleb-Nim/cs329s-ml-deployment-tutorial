@@ -10,9 +10,13 @@ RUN pip install -U pip
 COPY requirements.txt app/requirements.txt
 RUN pip install -r app/requirements.txt
 
+RUN bash scripts/install_ext.sh
+
 # Create a new directory for app (keep it in its own directory)
 COPY . /app
 WORKDIR app
+
+
 
 # Run
 ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
